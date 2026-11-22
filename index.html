@@ -1,0 +1,1074 @@
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Necoclí, Antioquia | La Perla del Golfo de Urabá</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        caribe: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                            deep: '#073b4c',
+                        },
+                        arena: {
+                            50: '#fdfbf7',
+                            100: '#faf4e8',
+                            200: '#f4e6cc',
+                            300: '#ebd1a3',
+                            500: '#d4a359',
+                        },
+                        coral: {
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            warm: '#ff6b57'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados mínimos para animaciones de scroll y fondos */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(7, 59, 76, 0.45) 0%, rgba(7, 59, 76, 0.25) 50%, rgba(7, 59, 76, 0.85) 100%);
+        }
+        /* Ocultar scrollbar en pestañas móviles si es necesario */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-arena-50 text-slate-800 antialiased selection:bg-caribe-500 selection:text-white">
+
+    <!-- ==================== NAVEGACIÓN FIJA (STICKY NAVBAR) ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#inicio" class="flex items-center gap-2.5 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-caribe-500 to-caribe-700 flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                        <i data-lucide="sun" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span id="nav-brand" class="font-serif font-bold text-xl tracking-tight text-white transition-colors block leading-none">Necoclí</span>
+                        <span id="nav-sub" class="text-[11px] uppercase tracking-widest text-caribe-100 font-medium transition-colors">Golfo de Urabá</span>
+                    </div>
+                </a>
+
+                <!-- Enlaces Desktop -->
+                <nav class="hidden lg:flex items-center gap-7">
+                    <a href="#inicio" class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Inicio</a>
+                    <a href="#atracciones" class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Atracciones</a>
+                    <a href="#cultura" class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Cultura e Historia</a>
+                    <a href="#gastronomia" class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Gastronomía</a>
+                    <a href="#como-llegar" class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Cómo Llegar</a>
+                    <a href="#planifica" class="px-5 py-2.5 rounded-full bg-coral-warm hover:bg-coral-600 text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                        Planifica tu Viaje
+                    </a>
+                </nav>
+
+                <!-- Botón Menú Móvil -->
+                <button id="mobile-menu-btn" aria-label="Abrir menú" class="lg:hidden p-2.5 rounded-xl text-white hover:bg-white/10 transition-colors">
+                    <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-100 shadow-xl mt-3 mx-4 rounded-2xl overflow-hidden">
+            <div class="px-4 pt-3 pb-5 space-y-1.5">
+                <a href="#inicio" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-caribe-50 hover:text-caribe-700">Inicio</a>
+                <a href="#atracciones" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-caribe-50 hover:text-caribe-700">Atracciones Imperdibles</a>
+                <a href="#cultura" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-caribe-50 hover:text-caribe-700">Cultura e Historia</a>
+                <a href="#gastronomia" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-caribe-50 hover:text-caribe-700">Sabores del Golfo</a>
+                <a href="#como-llegar" class="mobile-link block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-caribe-50 hover:text-caribe-700">Cómo Llegar</a>
+                <div class="pt-2">
+                    <a href="#planifica" class="mobile-link block w-full text-center px-4 py-3 rounded-xl bg-caribe-600 text-white font-semibold shadow-md">Planifica tu Viaje</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Imagen de Fondo con Fallback -->
+        <img 
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85" 
+            alt="Atardecer en las playas caribeñas de Necoclí"
+            onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/073b4c/ffffff?text=Playas+de+Necocli';"
+            class="absolute inset-0 w-full h-full object-cover object-center scale-105 animate-[pulse_20s_ease-in-out_infinite]"
+        >
+        <div class="absolute inset-0 hero-gradient"></div>
+
+        <!-- Contenido Central -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span>La Perla del Golfo de Urabá • Antioquia, Colombia</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6 drop-shadow-sm">
+                Descubre Necoclí: <br class="hidden sm:block">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-arena-200 to-caribe-200 italic">
+                    Donde el Caribe abraza la selva
+                </span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-base sm:text-xl text-white/90 font-normal leading-relaxed mb-10">
+                Sumérgete en más de 90 kilómetros de playas vírgenes, ciénagas llenas de vida, historia ancestral y la calidez de una tierra mágica en el corazón del Golfo de Urabá.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#atracciones" class="w-full sm:w-auto px-8 py-4 rounded-full bg-caribe-500 hover:bg-caribe-600 text-white font-semibold text-base shadow-xl shadow-caribe-900/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <span>Explorar Destinos</span>
+                    <i data-lucide="compass" class="w-5 h-5"></i>
+                </a>
+                <a href="#planifica" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white font-semibold text-base transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="calendar-heart" class="w-5 h-5"></i>
+                    <span>Guía de Viaje</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Indicador de Scroll -->
+        <a href="#datos" aria-label="Bajar a estadísticas" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 hover:text-white flex flex-col items-center gap-1 transition-colors">
+            <span class="text-[11px] uppercase tracking-widest">Descubre más</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 animate-bounce"></i>
+        </a>
+    </section>
+
+    <!-- ==================== DATOS RÁPIDOS / ESTADÍSTICAS ==================== -->
+    <section id="datos" class="relative z-20 -mt-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/70 border border-arena-200/60 p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <!-- Dato 1 -->
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="thermometer-sun" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-2xl sm:text-3xl font-bold text-caribe-deep">28°C</p>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Clima tropical todo el año</p>
+                </div>
+            </div>
+            <!-- Dato 2 -->
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-caribe-50 text-caribe-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="waves" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-2xl sm:text-3xl font-bold text-caribe-deep">+90 km</p>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">De costas y playas caribeñas</p>
+                </div>
+            </div>
+            <!-- Dato 3 -->
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-coral-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="landmark" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-2xl sm:text-3xl font-bold text-caribe-deep">1509</p>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Cuna histórica en tierra firme</p>
+                </div>
+            </div>
+            <!-- Dato 4 -->
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-2xl sm:text-3xl font-bold text-caribe-deep">Urabá</p>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">Corazón estratégico del Golfo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ATRACTIVOS IMPERDIBLES ==================== -->
+    <section id="atracciones" class="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal">
+            <span class="text-caribe-600 font-semibold text-sm uppercase tracking-wider">Paraíso por Descubrir</span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold text-caribe-deep mt-2 mb-4">Atractivos Imperdibles</h2>
+            <p class="text-slate-600 text-base sm:text-lg">
+                Desde playas de oleaje suave ideales para descansar hasta reservas naturales donde los manglares protegen cientos de especies de aves.
+            </p>
+        </div>
+
+        <!-- Filtros por Categoría -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 mb-12 reveal" id="filter-buttons">
+            <button data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full text-sm font-semibold bg-caribe-deep text-white shadow-md transition-all">
+                Todos los destinos
+            </button>
+            <button data-filter="playas" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 hover:bg-caribe-50 border border-slate-200 transition-all">
+                🏖️ Playas
+            </button>
+            <button data-filter="naturaleza" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 hover:bg-caribe-50 border border-slate-200 transition-all">
+                🌿 Naturaleza y Ecoturismo
+            </button>
+            <button data-filter="aventura" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-slate-600 hover:bg-caribe-50 border border-slate-200 transition-all">
+                ⛵ Aventura y Bienestar
+            </button>
+        </div>
+
+        <!-- Grid de Tarjetas de Atractivos (Renderizado dinámico desde JS) -->
+        <div id="attractions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Las tarjetas se inyectan con JavaScript -->
+        </div>
+    </section>
+
+    <!-- ==================== HISTORIA Y CULTURA VIVA ==================== -->
+    <section id="cultura" class="py-20 sm:py-28 bg-caribe-deep text-white relative overflow-hidden">
+        <!-- Decoración sutil -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-caribe-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-coral-warm/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Columna Texto -->
+                <div class="lg:col-span-7 reveal">
+                    <span class="inline-block px-3.5 py-1 rounded-full bg-caribe-800 text-caribe-200 text-xs font-semibold uppercase tracking-wider mb-4">
+                        Raíces y Tradición
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight mb-6">
+                        Historia y Cultura Viva en el Corazón de Urabá
+                    </h2>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+                        En <strong class="text-white">1509</strong>, Alonso de Ojeda fundó en estas tierras <strong class="text-amber-300">San Sebastián de Urabá</strong>, considerado uno de los primeros asentamientos europeos en tierra firme del continente americano. Hoy, Necoclí es un crisol vibrante donde convergen las herencias <strong class="text-white">afrocolombiana, indígena (comunidades Gunadule/Tule y Zenú) y paisa</strong>.
+                    </p>
+
+                    <!-- Pilares Culturales -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-9 h-9 rounded-xl bg-coral-warm/20 text-coral-400 flex items-center justify-center">
+                                    <i data-lucide="music" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-bold text-lg">Festival del Bullerengue</h3>
+                            </div>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Cada octubre, los tambores, palmas y cantos ancestrales retumban en el Festival Nacional del Bullerengue, patrimonio sonoro de nuestra identidad afrocaribeña.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center">
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-bold text-lg">Fiestas del Coco</h3>
+                            </div>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Celebración emblemática en enero que rinde homenaje al fruto insignia de la región con desfiles, reinados, muestras artesanales y música tropical.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Visual Collage -->
+                <div class="lg:col-span-5 reveal">
+                    <div class="relative">
+                        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
+                            <img 
+                                src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80" 
+                                alt="Cultura tropical y atardecer caribeño en Necoclí"
+                                onerror="this.onerror=null;this.src='https://placehold.co/800x900/115e59/ffffff?text=Cultura+y+Tradicion+Necocli';"
+                                class="w-full h-[420px] object-cover"
+                            >
+                        </div>
+                        <!-- Tarjeta Flotante -->
+                        <div class="absolute -bottom-6 -left-4 sm:-left-6 bg-arena-100 text-caribe-deep p-5 rounded-2xl shadow-xl max-w-xs border border-arena-300">
+                            <div class="flex items-center gap-3 mb-1">
+                                <i data-lucide="feather" class="w-5 h-5 text-caribe-600"></i>
+                                <span class="font-bold text-sm">Saberes Ancestrales</span>
+                            </div>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Artesanías en caña flecha de la comunidad Zenú y las coloridas molas textiles del pueblo Gunadule en El Caimán Nuevo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SABORES DEL GOLFO (GASTRONOMÍA) ==================== -->
+    <section id="gastronomia" class="py-20 sm:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 reveal">
+            <div>
+                <span class="text-coral-warm font-semibold text-sm uppercase tracking-wider">Cocina Caribeña Auténtica</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-caribe-deep mt-2">Sabores del Golfo</h2>
+            </div>
+            <p class="text-slate-600 max-w-md text-base">
+                La frescura del mar recién pescado se fusiona con el coco, el plátano verde y frutas tropicales cosechadas en tierra fértil.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+            <!-- Plato 1 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300">
+                <div class="h-52 overflow-hidden relative">
+                    <img 
+                        src="https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?auto=format&fit=crop&w=800&q=80" 
+                        alt="Pargo rojo frito con arroz con coco y patacones"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/0d9488/ffffff?text=Pargo+Frito+y+Arroz+con+Coco';"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    >
+                    <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-caribe-deep">Insignia</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-caribe-deep mb-2">Pargo Rojo & Arroz con Coco</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Pescado fresco crocante acompañado de arroz con titoté de coco caramelizado, patacones dorados y ensalada fresca.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 2 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300">
+                <div class="h-52 overflow-hidden relative">
+                    <img 
+                        src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=800&q=80" 
+                        alt="Cazuela de mariscos cremosa"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/ff6b57/ffffff?text=Cazuela+de+Mariscos';"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    >
+                    <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-coral-600">Del Mar</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-caribe-deep mb-2">Cazuela de Mariscos</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Camarones, calamares, caracol y filete de sierra cocinados lentamente en leche de coco natural y especias caribeñas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 3 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300">
+                <div class="h-52 overflow-hidden relative">
+                    <img 
+                        src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" 
+                        alt="Patacones con hogao y queso costeño"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/d4a359/ffffff?text=Patacones+y+Mote';"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    >
+                    <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-amber-700">Tradición</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-caribe-deep mb-2">Patacones & Mote de Queso</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Crujientes tostones de plátano verde urabaense con suero costeño y el cremoso mote de ñame con queso campesino.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Plato 4 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300">
+                <div class="h-52 overflow-hidden relative">
+                    <img 
+                        src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=800&q=80" 
+                        alt="Cocadas artesanales y jugos tropicales"
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x400/14b8a6/ffffff?text=Cocadas+y+Jugos';"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    >
+                    <span class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-xs font-bold text-emerald-700">Dulce</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-caribe-deep mb-2">Cocadas & Jugos Tropicales</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Dulces artesanales de coco con panela, maracuyá o piña, acompañados de limonada de coco helada frente al mar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PLANIFICA TU EXPERIENCIA (GENERADOR + CÓMO LLEGAR) ==================== -->
+    <section id="planifica" class="py-20 sm:py-28 bg-arena-100/80 border-y border-arena-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Generador Interactivo de Itinerario -->
+            <div class="bg-white rounded-3xl shadow-xl border border-arena-200 p-6 sm:p-10 lg:p-12 mb-20 reveal">
+                <div class="max-w-3xl mb-8">
+                    <span class="text-caribe-600 font-semibold text-sm uppercase tracking-wider">Itinerario a tu Medida</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-caribe-deep mt-1 mb-3">Planifica tu Experiencia en Necoclí</h2>
+                    <p class="text-slate-600">Selecciona la duración de tu estadía y el estilo de viaje que más te inspira para generar una ruta recomendada.</p>
+                </div>
+
+                <!-- Controles del Generador -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-5 sm:p-6 rounded-2xl bg-arena-50 border border-arena-200/80">
+                    <!-- Selección de Días -->
+                    <div>
+                        <label class="block text-sm font-bold text-caribe-deep mb-3">1. ¿Cuántos días nos visitas?</label>
+                        <div class="grid grid-cols-3 gap-2.5" id="days-selector">
+                            <button type="button" data-days="1" class="day-opt py-3 px-3 rounded-xl font-semibold text-sm bg-caribe-600 text-white shadow-sm transition-all">
+                                1 Día
+                            </button>
+                            <button type="button" data-days="2" class="day-opt py-3 px-3 rounded-xl font-semibold text-sm bg-white text-slate-700 border border-slate-200 hover:border-caribe-400 transition-all">
+                                2 Días
+                            </button>
+                            <button type="button" data-days="3" class="day-opt py-3 px-3 rounded-xl font-semibold text-sm bg-white text-slate-700 border border-slate-200 hover:border-caribe-400 transition-all">
+                                3 Días
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selección de Estilo -->
+                    <div>
+                        <label class="block text-sm font-bold text-caribe-deep mb-3">2. ¿Cuál es tu estilo de viaje?</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="style-selector">
+                            <button type="button" data-style="relax" class="style-opt py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm bg-caribe-600 text-white shadow-sm transition-all">
+                                🌴 Relax Playa
+                            </button>
+                            <button type="button" data-style="ecoturismo" class="style-opt py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 hover:border-caribe-400 transition-all">
+                                🦜 Ecoturismo
+                            </button>
+                            <button type="button" data-style="cultura" class="style-opt py-3 px-3 rounded-xl font-semibold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 hover:border-caribe-400 transition-all">
+                                🍲 Cultura & Sabor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultado Dinámico del Itinerario -->
+                <div id="itinerary-output" class="space-y-4">
+                    <!-- Inyectado dinámicamente vía JavaScript -->
+                </div>
+            </div>
+
+            <!-- Sección Cómo Llegar -->
+            <div id="como-llegar" class="scroll-mt-24 reveal">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-caribe-600 font-semibold text-sm uppercase tracking-wider">Conectividad y Rutas</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-caribe-deep mt-2 mb-3">¿Cómo Llegar a Necoclí?</h2>
+                    <p class="text-slate-600">Ubicado al norte del Urabá antioqueño, cuenta con excelentes vías de acceso terrestre y cercanía aérea.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Ruta 1: Desde Medellín Terrestre -->
+                    <div class="bg-white rounded-3xl p-7 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-2xl bg-caribe-50 text-caribe-600 flex items-center justify-center mb-5">
+                            <i data-lucide="bus" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-caribe-deep">Desde Medellín (Vía Terrestre)</h3>
+                        </div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-semibold mb-4">~ 7 a 8 horas • 390 km</span>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Toma la vía al Occidente antioqueño pasando por <strong>Santa Fe de Antioquia, Dabeiba, Chigorodó, Apartadó y Turbo</strong> hasta llegar directo a Necoclí. Buses directos salen cada hora desde la Terminal del Norte.
+                        </p>
+                    </div>
+
+                    <!-- Ruta 2: Vía Aérea -->
+                    <div class="bg-white rounded-3xl p-7 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-2xl bg-coral-50 text-coral-600 flex items-center justify-center mb-5">
+                            <i data-lucide="plane" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-caribe-deep">Vía Aérea (Vía Apartadó)</h3>
+                        </div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-caribe-50 text-caribe-700 text-xs font-semibold mb-4">45 min vuelo + 1h 30m tierra</span>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Vuela desde el Aeropuerto Olaya Herrera de Medellín hasta el <strong>Aeropuerto Antonio Roldán Betancur (Carepa / Apartadó)</strong>. Desde allí tomas transporte intermunicipal o taxi hacia Necoclí.
+                        </p>
+                    </div>
+
+                    <!-- Ruta 3: Desde Montería -->
+                    <div class="bg-white rounded-3xl p-7 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5">
+                            <i data-lucide="car" class="w-6 h-6"></i>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-xl text-caribe-deep">Desde Montería (Córdoba)</h3>
+                        </div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold mb-4">~ 2h 30m • 145 km</span>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            Una ruta escénica bordeando la costa Caribe por <strong>Los Córdobas, Puerto Escondido y Arboletes</strong> hasta ingresar a Antioquia por San Juan de Urabá y Necoclí.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PREGUNTAS FRECUENTES (FAQ ACORDEÓN) ==================== -->
+    <section class="py-20 sm:py-28 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 reveal">
+            <span class="text-caribe-600 font-semibold text-sm uppercase tracking-wider">Consejos al Viajero</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-caribe-deep mt-2">Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="space-y-4 reveal" id="faq-container">
+            <!-- FAQ 1 -->
+            <div class="faq-item bg-white rounded-2xl border border-slate-200/80 overflow-hidden transition-all">
+                <button class="faq-btn w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-caribe-deep hover:bg-arena-50 transition-colors">
+                    <span>¿Cuál es la mejor época del año para visitar Necoclí?</span>
+                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-caribe-600 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-3">
+                    Necoclí goza de un clima cálido tropical todo el año (promedio 28°C). La temporada seca va de <strong>diciembre a abril</strong> y entre <strong>julio y agosto</strong>, ideal para cielos despejados, deportes náuticos y disfrutar las Fiestas del Coco (enero). En octubre se celebra el Festival del Bullerengue con un ambiente cultural inolvidable.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item bg-white rounded-2xl border border-slate-200/80 overflow-hidden transition-all">
+                <button class="faq-btn w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-caribe-deep hover:bg-arena-50 transition-colors">
+                    <span>¿Es un destino seguro y apto para familias con niños?</span>
+                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-caribe-600 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-3">
+                    Sí, totalmente. A diferencia de otras zonas del Caribe con fuerte oleaje, las playas urbanas de Necoclí (como El Pescador y El Totumo) se caracterizan por sus <strong>aguas tranquilas y poco profundas</strong>, lo que las hace ideales y muy seguras para familias con niños y adultos mayores.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item bg-white rounded-2xl border border-slate-200/80 overflow-hidden transition-all">
+                <button class="faq-btn w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-caribe-deep hover:bg-arena-50 transition-colors">
+                    <span>¿Qué debo empacar en mi maleta?</span>
+                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-caribe-600 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-3">
+                    Te recomendamos ropa ligera de algodón o lino, traje de baño, gafas de sol, sombrero o gorra, <strong>bloqueador solar biodegradable</strong> (para cuidar los ecosistemas marinos), repelente de insectos (especialmente si visitas ciénagas o manglares), sandalias cómodas y calzado cerrado ligero para caminatas ecológicas.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item bg-white rounded-2xl border border-slate-200/80 overflow-hidden transition-all">
+                <button class="faq-btn w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-caribe-deep hover:bg-arena-50 transition-colors">
+                    <span>¿Hay buena conectividad, cajeros automáticos y servicios médicos?</span>
+                    <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-caribe-600 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-slate-600 text-sm sm:text-base leading-relaxed border-t border-slate-100 pt-3">
+                    En el casco urbano de Necoclí encontrarás cobertura móvil 4G/5G de los principales operadores, conexión Wi-Fi en hoteles y restaurantes, cajeros automáticos, corresponsales bancarios y hospital local. Sin embargo, si visitas zonas rurales o playas alejadas, es recomendable llevar algo de efectivo.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-caribe-deep text-white pt-16 pb-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <!-- Columna 1: Marca -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-caribe-500 flex items-center justify-center text-white">
+                            <i data-lucide="sun" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="font-serif font-bold text-2xl block leading-none">Necoclí</span>
+                            <span class="text-xs uppercase tracking-widest text-caribe-200">Antioquia • Colombia</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 text-sm max-w-md leading-relaxed mb-6">
+                        "La Perla del Golfo de Urabá": un destino donde la historia de América, la biodiversidad del Caribe y la alegría de su gente te esperan con los brazos abiertos.
+                    </p>
+                    <!-- Widget Clima Referencial -->
+                    <div class="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/10 border border-white/15">
+                        <i data-lucide="sun-medium" class="w-6 h-6 text-amber-300"></i>
+                        <div class="text-xs">
+                            <span class="text-slate-300 block">Clima actual referencial</span>
+                            <span class="font-bold text-white text-sm">29°C • Soleado con brisa marina</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div>
+                    <h4 class="font-bold text-base mb-4 text-arena-200">Explora</h4>
+                    <ul class="space-y-2.5 text-sm text-slate-300">
+                        <li><a href="#inicio" class="hover:text-white transition-colors">Inicio</a></li>
+                        <li><a href="#atracciones" class="hover:text-white transition-colors">Atractivos Imperdibles</a></li>
+                        <li><a href="#cultura" class="hover:text-white transition-colors">Historia y Cultura Viva</a></li>
+                        <li><a href="#gastronomia" class="hover:text-white transition-colors">Sabores del Golfo</a></li>
+                        <li><a href="#como-llegar" class="hover:text-white transition-colors">Cómo Llegar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Información Turística -->
+                <div>
+                    <h4 class="font-bold text-base mb-4 text-arena-200">Punto de Información</h4>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-caribe-400 shrink-0 mt-1"></i>
+                            <span>Parque Principal & Malecón Turístico, Necoclí, Antioquia.</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i data-lucide="compass" class="w-4 h-4 text-caribe-400 shrink-0"></i>
+                            <span>8°25'33"N 76°47'02"O</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i data-lucide="heart" class="w-4 h-4 text-coral-400 shrink-0"></i>
+                            <span>Turismo Sostenible y Comunitario</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+                <p>© 2026 Descubre Necoclí • Guía Turística Promocional del Golfo de Urabá.</p>
+                <p class="text-arena-200 font-medium">✨ Vive el Caribe Antioqueño con respeto por la naturaleza</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL DE DETALLE DE ATRACTIVO ==================== -->
+    <div id="attraction-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all animate-[fadeIn_0.2s_ease-out]">
+            <div class="relative h-64 sm:h-72">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button id="close-modal" aria-label="Cerrar ventana" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center backdrop-blur-md transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <span id="modal-badge" class="absolute bottom-4 left-4 px-3.5 py-1 rounded-full bg-caribe-600 text-white text-xs font-bold uppercase tracking-wider shadow-md"></span>
+            </div>
+            <div class="p-6 sm:p-8">
+                <h3 id="modal-title" class="font-serif text-2xl sm:text-3xl font-bold text-caribe-deep mb-3"></h3>
+                <p id="modal-desc" class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6"></p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-arena-50 border border-arena-200 mb-6">
+                    <div class="flex items-start gap-2.5">
+                        <i data-lucide="clock" class="w-5 h-5 text-caribe-600 shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 block uppercase">Horario Recomendado</span>
+                            <span id="modal-time" class="text-sm font-semibold text-caribe-deep"></span>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-coral-warm shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 block uppercase">Imperdible</span>
+                            <span id="modal-tip" class="text-sm font-semibold text-caribe-deep"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3">
+                    <button id="modal-close-btn" class="px-6 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-colors">
+                        Cerrar
+                    </button>
+                    <a href="#planifica" id="modal-plan-btn" class="px-6 py-2.5 rounded-full bg-caribe-600 hover:bg-caribe-700 text-white font-semibold text-sm shadow-md transition-colors">
+                        Incluir en mi itinerario
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT PURO ==================== -->
+    <script>
+        // Inicializar iconos Lucide
+        lucide.createIcons();
+
+        // 1. BASE DE DATOS DE ATRACTIVOS
+        const attractionsData = [
+            {
+                id: 1,
+                title: "Playas del Totumo y El Pescador",
+                category: "playas",
+                categoryLabel: "Playas",
+                shortDesc: "Extensas playas de arena suave y oleaje tranquilo frente al Golfo de Urabá, famosas por regalar los atardeceres más coloridos de Antioquia.",
+                fullDesc: "Ubicadas a pocos minutos del casco urbano, las playas de El Pescador y El Totumo ofrecen un entorno relajado con kioscos típicos, alquiler de carpas y un mar sereno ideal para nadar con tranquilidad. Al caer la tarde, el cielo se tiñe de tonos naranjas y violetas sobre el horizonte del Golfo.",
+                image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/0d9488/ffffff?text=Playas+de+Necocli",
+                bestTime: "Todo el día (Atardecer 5:30 PM)",
+                tip: "Probar una limonada de coco viendo la puesta de sol"
+            },
+            {
+                id: 2,
+                title: "Volcán de Lodo de El Totumo / Arboletes",
+                category: "aventura",
+                categoryLabel: "Aventura y Bienestar",
+                shortDesc: "Una experiencia termal natural única: sumérgete y flota sin esfuerzo en lodo mineral con propiedades exfoliantes y terapéuticas.",
+                fullDesc: "A corto recorrido por la ruta costera desde Necoclí (hacia el límite con Arboletes y sectores de diapirismo de lodo), este fenómeno natural permite disfrutar de baños de lodo rico en minerales volcánicos que revitalizan la piel, seguidos de un refrescante baño en el mar Caribe.",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/d4a359/ffffff?text=Volcan+de+Lodo",
+                bestTime: "Mañana (8:00 AM - 12:00 PM)",
+                tip: "Llevar traje de baño oscuro y sandalias fáciles de lavar"
+            },
+            {
+                id: 3,
+                title: "Ensenada de Rionegro y Ciénaga La Marimonda",
+                category: "naturaleza",
+                categoryLabel: "Naturaleza y Ecoturismo",
+                shortDesc: "Santuario ecológico de manglares y humedales donde conviven aves migratorias, babillas, monos aulladores y manatíes.",
+                fullDesc: "La Ciénaga La Marimonda (el cuerpo de agua dulce más grande de Urabá) y la Ensenada de Rionegro forman un corredor biológico vital. Se recorren en embarcaciones silenciosas guiadas por locales para observar garzas, martines pescadores, águilas pescadoras y túneles naturales de mangle rojo.",
+                image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/115e59/ffffff?text=Cienaga+La+Marimonda",
+                bestTime: "Muy temprano (6:00 AM - 9:30 AM)",
+                tip: "Llevar binoculares, cámara y repelente ecológico"
+            },
+            {
+                id: 4,
+                title: "Muelle Turístico y Deportes Náuticos",
+                category: "aventura",
+                categoryLabel: "Aventura y Bienestar",
+                shortDesc: "Punto de partida hacia aventuras marinas: paseos en lancha, kayak, paddleboard y kitesurf impulsado por los vientos alisios.",
+                fullDesc: "El muelle y el malecón de Necoclí vibran con actividad marítima. Gracias a los vientos constantes entre diciembre y abril, sus aguas se convierten en un escenario privilegiado para practicar kitesurf, windsurf, paseos en kayak por la costa o excursiones en lancha hacia playas virgenes.",
+                image: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/073b4c/ffffff?text=Deportes+Nauticos",
+                bestTime: "Tarde con brisa (2:00 PM - 5:00 PM)",
+                tip: "Reservar clases de iniciación al kitesurf o alquiler de kayak"
+            },
+            {
+                id: 5,
+                title: "Mirador de El Carlos y Senderos Ecológicos",
+                category: "naturaleza",
+                categoryLabel: "Naturaleza y Ecoturismo",
+                shortDesc: "Panorámica de 360 grados donde se aprecia el encuentro exacto entre las colinas verdes de Urabá y el azul infinito del Caribe.",
+                fullDesc: "Ubicado en una zona elevada rodeada de bosque seco tropical, el Mirador de El Carlos invita a realizar senderismo interpretativo entre ceibas centenarias y cultivos de plátano y cacao, culminando en una vista espectacular de todo el Golfo de Urabá.",
+                image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/0f766e/ffffff?text=Mirador+El+Carlos",
+                bestTime: "Mañana o final de la tarde",
+                tip: "Usar calzado con buen agarre y llevar hidratación"
+            },
+            {
+                id: 6,
+                title: "Playa Bobalito y Punta Caribana",
+                category: "playas",
+                categoryLabel: "Playas",
+                shortDesc: "Playas vírgenes rodeadas de cocoteros donde el silencio de la naturaleza y el sonido de las olas crean un refugio de paz absoluta.",
+                fullDesc: "Para quienes buscan desconexión total lejos de las multitudes, el corredor costero hacia Bobalito y Punta Caribana ofrece kilómetros de costa casi intacta, perfecta para caminatas ecológicas junto al mar y avistamiento estacional de tortugas marinas.",
+                image: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?auto=format&fit=crop&w=900&q=80",
+                fallback: "https://placehold.co/800x600/14b8a6/ffffff?text=Playa+Bobalito",
+                bestTime: "Mañana y mediodía",
+                tip: "Contrata un guía local para conocer los senderos costeros"
+            }
+        ];
+
+        // 2. RENDERIZADO Y FILTRADO DE ATRACTIVOS
+        const attractionsGrid = document.getElementById('attractions-grid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderAttractions(filter = 'all') {
+            const filtered = filter === 'all' 
+                ? attractionsData 
+                : attractionsData.filter(item => item.category === filter);
+
+            attractionsGrid.innerHTML = filtered.map(item => `
+                <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-100 transition-all duration-300 flex flex-col group">
+                    <div class="relative h-60 overflow-hidden">
+                        <img 
+                            src="${item.image}" 
+                            alt="${item.title}"
+                            onerror="this.onerror=null;this.src='${item.fallback}';"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        >
+                        <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-xs font-bold text-caribe-deep shadow-sm">
+                            ${item.categoryLabel}
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-caribe-deep mb-2 group-hover:text-caribe-600 transition-colors">
+                                ${item.title}
+                            </h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                                ${item.shortDesc}
+                            </p>
+                        </div>
+                        <button 
+                            onclick="openModal(${item.id})" 
+                            class="w-full py-3 px-4 rounded-xl bg-arena-100 hover:bg-caribe-600 text-caribe-deep hover:text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+                        >
+                            <span>Ver detalles y consejos</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </article>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-caribe-deep', 'text-white', 'shadow-md');
+                    b.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                });
+                btn.classList.add('bg-caribe-deep', 'text-white', 'shadow-md');
+                btn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+
+                renderAttractions(btn.dataset.filter);
+            });
+        });
+
+        // 3. MODAL DE DETALLE
+        const modal = document.getElementById('attraction-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalCloseBtn2 = document.getElementById('modal-close-btn');
+        const modalPlanBtn = document.getElementById('modal-plan-btn');
+
+        window.openModal = function(id) {
+            const item = attractionsData.find(a => a.id === id);
+            if (!item) return;
+
+            const imgEl = document.getElementById('modal-img');
+            imgEl.src = item.image;
+            imgEl.onerror = function() { this.src = item.fallback; };
+            imgEl.alt = item.title;
+
+            document.getElementById('modal-badge').textContent = item.categoryLabel;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-desc').textContent = item.fullDesc;
+            document.getElementById('modal-time').textContent = item.bestTime;
+            document.getElementById('modal-tip').textContent = item.tip;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        };
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        modalCloseBtn2.addEventListener('click', closeModal);
+        modalPlanBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // 4. GENERADOR DINÁMICO DE ITINERARIO
+        let selectedDays = 1;
+        let selectedStyle = 'relax';
+
+        const itinerariesDB = {
+            relax: [
+                {
+                    day: "Día 1: Sol, Brisa y Atardecer en el Golfo",
+                    morning: "Desayuno típico frente al mar y mañana de descanso en las aguas serenas de Playa El Pescador.",
+                    afternoon: "Almuerzo con pargo rojo frito y arroz con coco; caminata suave hacia Playas del Totumo.",
+                    evening: "Contemplación del atardecer desde el Malecón Turístico con una limonada de coco helada."
+                },
+                {
+                    day: "Día 2: Terapia Natural y Playas Vírgenes",
+                    morning: "Excursión temprana al Volcán de Lodo para un baño mineral revitalizante seguido de chapuzón en el mar.",
+                    afternoon: "Tarde libre en Playa Bobalito disfrutando de la tranquilidad bajo las palmeras.",
+                    evening: "Cena de cazuela de mariscos y recorrido nocturno por el Parque Principal."
+                },
+                {
+                    day: "Día 3: Paseo en Lancha y Despedida Caribeña",
+                    morning: "Paseo panorámico en lancha desde el Muelle Turístico bordeando la costa de Urabá.",
+                    afternoon: "Compra de cocadas artesanales y souvenirs antes de emprender el regreso.",
+                    evening: "Última vista panorámica de la bahía antes de partir."
+                }
+            ],
+            ecoturismo: [
+                {
+                    day: "Día 1: Santuario de Manglares y Aves",
+                    morning: "Avistamiento de aves al amanecer en la Ciénaga La Marimonda y túneles de mangle en canoa.",
+                    afternoon: "Almuerzo ecoturístico y recorrido por la Ensenada de Rionegro.",
+                    evening: "Descanso y charla sobre conservación marina en el casco urbano."
+                },
+                {
+                    day: "Día 2: Miradores y Bosque Tropical",
+                    morning: "Caminata ecológica hacia el Mirador de El Carlos para observar la panorámica del Golfo.",
+                    afternoon: "Exploración de senderos costeros hacia Punta Caribana entre ceibas y cocoteros.",
+                    evening: "Cena ligera con productos locales y observación de estrellas en la playa."
+                },
+                {
+                    day: "Día 3: Kayak Costero y Bienestar Natural",
+                    morning: "Travesía en kayak por aguas tranquilas desde el Muelle Turístico.",
+                    afternoon: "Visita al Volcán de Lodo para cerrar la aventura conectando con la tierra.",
+                    evening: "Regreso con recuerdos inolvidables de la biodiversidad urabaense."
+                }
+            ],
+            cultura: [
+                {
+                    day: "Día 1: Raíces de 1509 y Sabores del Mar",
+                    morning: "Recorrido histórico por los puntos emblemáticos de San Sebastián de Urabá y el Parque Principal.",
+                    afternoon: "Ruta gastronómica: pargo rojo, patacones con suero costeño y mote de queso.",
+                    evening: "Muestra cultural de tambores y cantos tradicionales de Bullerengue."
+                },
+                {
+                    day: "Día 2: Artesanía Ancestral Gunadule y Zenú",
+                    morning: "Visita cultural para conocer el arte textil de las molas Gunadule y el tejido en caña flecha.",
+                    afternoon: "Taller gastronómico o degustación de dulces típicos de coco y frutas tropicales.",
+                    evening: "Atardecer en Playas del Totumo con música caribeña en vivo."
+                },
+                {
+                    day: "Día 3: Tradición Pesquera y Malecón",
+                    morning: "Acompañamiento a la llegada de los pescadores artesanales en Playa El Pescador.",
+                    afternoon: "Almuerzo de despedida con cazuela de mariscos frente al muelle.",
+                    evening: "Paseo final por las tiendas artesanales del malecón."
+                }
+            ]
+        };
+
+        function renderItinerary() {
+            const container = document.getElementById('itinerary-output');
+            const plan = itinerariesDB[selectedStyle].slice(0, selectedDays);
+
+            container.innerHTML = plan.map((item, index) => `
+                <div class="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-caribe-50/70 to-arena-50 border border-caribe-200/60 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 rounded-full bg-caribe-600 text-white font-bold text-sm flex items-center justify-center shrink-0">
+                            ${index + 1}
+                        </span>
+                        <h3 class="font-serif text-xl font-bold text-caribe-deep">${item.day}</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-slate-100">
+                            <span class="text-xs font-bold uppercase text-amber-600 block mb-1">☀️ Mañana</span>
+                            <p class="text-slate-600 leading-relaxed">${item.morning}</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-100">
+                            <span class="text-xs font-bold uppercase text-caribe-600 block mb-1">🌊 Tarde</span>
+                            <p class="text-slate-600 leading-relaxed">${item.afternoon}</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-100">
+                            <span class="text-xs font-bold uppercase text-coral-600 block mb-1">🌅 Atardecer / Noche</span>
+                            <p class="text-slate-600 leading-relaxed">${item.evening}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Eventos botones de Días
+        document.querySelectorAll('.day-opt').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.day-opt').forEach(b => {
+                    b.classList.remove('bg-caribe-600', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                });
+                btn.classList.add('bg-caribe-600', 'text-white', 'shadow-sm');
+                btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                selectedDays = parseInt(btn.dataset.days, 10);
+                renderItinerary();
+            });
+        });
+
+        // Eventos botones de Estilo
+        document.querySelectorAll('.style-opt').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.style-opt').forEach(b => {
+                    b.classList.remove('bg-caribe-600', 'text-white', 'shadow-sm');
+                    b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                });
+                btn.classList.add('bg-caribe-600', 'text-white', 'shadow-sm');
+                btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                selectedStyle = btn.dataset.style;
+                renderItinerary();
+            });
+        });
+
+        // 5. ACORDEÓN DE PREGUNTAS FRECUENTES (FAQ)
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('.faq-icon');
+                const isOpen = !content.classList.contains('hidden');
+
+                // Cerrar todos primero
+                document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
+
+                if (!isOpen) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // 6. NAVBAR STICKY DINÁMICA Y MENÚ MÓVIL
+        const navbar = document.getElementById('navbar');
+        const navBrand = document.getElementById('nav-brand');
+        const navSub = document.getElementById('nav-sub');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'py-3');
+                navbar.classList.remove('bg-transparent', 'py-4');
+                navBrand.classList.replace('text-white', 'text-caribe-deep');
+                navSub.classList.replace('text-caribe-100', 'text-caribe-600');
+                mobileMenuBtn.classList.replace('text-white', 'text-caribe-deep');
+                navLinks.forEach(l => {
+                    l.classList.replace('text-white/90', 'text-slate-700');
+                    l.classList.replace('hover:text-white', 'hover:text-caribe-600');
+                });
+            } else {
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-md', 'py-3');
+                navbar.classList.add('bg-transparent', 'py-4');
+                navBrand.classList.replace('text-caribe-deep', 'text-white');
+                navSub.classList.replace('text-caribe-600', 'text-caribe-100');
+                mobileMenuBtn.classList.replace('text-caribe-deep', 'text-white');
+                navLinks.forEach(l => {
+                    l.classList.replace('text-slate-700', 'text-white/90');
+                    l.classList.replace('hover:text-caribe-600', 'hover:text-white');
+                });
+            }
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 7. ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER)
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Inicializar contenidos dinámicos al cargar
+        renderAttractions('all');
+        renderItinerary();
+    </script>
+</body>
+</html>
+```
